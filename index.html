@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday.exe 🎂</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #050805;
+    color: #4ade80;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.terminal {
+    width: 100%;
+    max-width: 650px;
+    background: #0a100b;
+    border: 1px solid #237a3b;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 30px #14532d55;
+}
+
+.topbar {
+    background: #142018;
+    padding: 14px;
+    border-bottom: 1px solid #237a3b;
+    color: #bbf7d0;
+}
+
+.content {
+    padding: 22px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+h1 {
+    font-size: 22px;
+    text-align: center;
+    text-shadow: 0 0 12px #4ade80;
+}
+
+.green {
+    color: #4ade80;
+}
+
+.message {
+    color: #d1fae5;
+    white-space: pre-line;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid #4ade80;
+    border-radius: 6px;
+    color: #4ade80;
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #14532d;
+}
+
+#secret {
+    display: none;
+    margin-top: 20px;
+    color: #d1fae5;
+    border-top: 1px dashed #237a3b;
+    padding-top: 15px;
+}
+
+footer {
+    text-align: center;
+    color: #4b8b5b;
+    font-size: 12px;
+    padding: 0 12px 18px;
+}
+</style>
+</head>
+
+<body>
+<div class="terminal">
+    <div class="topbar">
+        ● <span style="color:#f87171">●</span>
+        <span style="color:#facc15">●</span>
+        <span style="color:#4ade80">●</span>
+        &nbsp; birthday.exe — terminal
+    </div>
+
+    <div class="content">
+        <h1>🎂 BIRTHDAY.EXE 🎂</h1>
+
+        <div id="terminalText"></div>
+
+        <div class="message">
+            <p>Hey, birthday person. 👾</p>
+
+            Congratulations! You've successfully survived
+            another 365 days in this chaotic simulation
+            called life. HAHAHA 😭
+
+            Semoga umur baru ni bawak lebih banyak
+            happiness, rezeki, good memories and
+            opportunities yang kau deserve.
+
+            Kalau hidup ni ada bugs, I hope you always
+            find the strength to debug them, one by one.
+
+            Thanks for being part of my storyline.
+            Out of all the random people I've encountered
+            in this server, I'm glad our paths crossed.
+        </div>
+
+        <p class="green">
+            &gt; Friendship status: ACTIVE<br>
+            &gt; Happiness level: INCREASING<br>
+            &gt; Bad luck: ACCESS DENIED<br>
+            &gt; Future success: LOADING...<br>
+            &gt; ERROR 404: BORING LIFE NOT FOUND
+        </p>
+
+        <h1>HAPPY BIRTHDAY, MY FRIEND. 💚</h1>
+
+        <button onclick="revealMessage()">
+            ./execute_wishes.sh
+        </button>
+
+        <div id="secret">
+            <p>&gt; EXECUTION SUCCESSFUL ✓</p>
+
+            One last thing, weh. Jangan give up on
+            yourself, okay? Aku harap satu hari nanti
+            kau tengok balik semua benda yang kau dah
+            lalui and realize how far you've come.
+
+            <p>
+                // End of message. Not the end of our friendship. 🖤
+            </p>
+        </div>
+    </div>
+
+    <footer>SECURE CONNECTION • BIRTHDAY SERVER ONLINE</footer>
+</div>
+
+<script>
+const lines = [
+    "root@birthday:~$ ./birthday.exe",
+    "> Initializing birthday protocol...",
+    "> Scanning for today's special person...",
+    "> Target identified: MY FRIEND",
+    "> Loading memories...",
+    "> Compiling birthday wishes...",
+    "> Access granted. ✓"
+];
+
+let lineIndex = 0;
+
+function showLines() {
+    const terminal = document.getElementById("terminalText");
+
+    if (lineIndex < lines.length) {
+        terminal.innerHTML +=
+            '<div class="green">' +
+            lines[lineIndex] +
+            '</div>';
+
+        lineIndex++;
+        setTimeout(showLines, 450);
+    }
+}
+
+function revealMessage() {
+    const secret = document.getElementById("secret");
+    secret.style.display =
+        secret.style.display === "block" ? "none" : "block";
+}
+
+showLines();
+</script>
+</body>
+</html>
