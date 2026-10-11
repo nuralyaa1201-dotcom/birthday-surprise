@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIRTHDAY CHAOS!!! 🎂</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  text-align: center;
+  color: #24152f;
+  background: linear-gradient(135deg, #ff70b8, #ffe45e, #7df9ff, #c69bff);
+  background-size: 400% 400%;
+  animation: rainbow 10s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes rainbow {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.container {
+  width: min(92%, 540px);
+  margin: 25px auto;
+  padding: 25px 20px;
+  background: #ffffffed;
+  border: 4px solid #24152f;
+  border-radius: 28px;
+  box-shadow: 8px 8px 0 #24152f;
+}
+
+h1 { font-size: clamp(2rem, 8vw, 3rem); margin: 10px 0; }
+h2 { font-size: 1.65rem; }
+p { line-height: 1.6; }
+
+.cat {
+  font-size: 95px;
+  margin: 10px;
+  animation: wobble 1.8s infinite;
+}
+
+@keyframes wobble {
+  0%,100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg) scale(1.06); }
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 3px solid #24152f;
+  border-radius: 15px;
+  padding: 12px 17px;
+  margin: 6px;
+  background: #ffe45e;
+  color: #24152f;
+  cursor: pointer;
+  box-shadow: 3px 4px 0 #24152f;
+  transition: transform .15s;
+}
+
+button:hover { transform: translateY(-3px) rotate(-1deg); }
+button:active { transform: translateY(2px); box-shadow: none; }
+
+.answer {
+  display: block;
+  width: 100%;
+  background: #ffb8e0;
+  margin: 12px 0;
+}
+
+input {
+  font: inherit;
+  padding: 12px;
+  width: 90%;
+  border: 3px solid #24152f;
+  border-radius: 12px;
+  text-align: center;
+  margin: 8px;
+}
+
+.tag {
+  background: #baff80;
+  padding: 7px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.meme {
+  background: #fff0a8;
+  border: 3px dashed #24152f;
+  padding: 15px;
+  border-radius: 18px;
+  margin: 15px 0;
+}
+
+.meme .cat { font-size: 75px; }
+
+.hidden { display: none !important; }
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.small { font-size: .9rem; color: #5e4865; }
+</style>
+</head>
+
+<body>
+<canvas id="confetti"></canvas>
+
+<!-- INTRO -->
+<section class="container" id="intro">
+  <span class="tag">⚠️ OFFICIAL CHAOS ZONE ⚠️</span>
+  <div class="cat">🐱🎂</div>
+  <h1>OI, BIRTHDAY GREMLIN!!!</h1>
+  <p>Congratulations! Kau telah berjaya survive satu lagi tahun 💀</p>
+  <p>Aku ada surprise untuk kau...</p>
+  <p><b>Tapi kau kena buktikan kau layak dulu.</b></p>
+
+  <input id="friendName" placeholder="Nama birthday person 👀">
+
+  <br>
+  <button onclick="startGame()">ENTER AT YOUR OWN RISK 💥</button>
+  <p class="small">Disclaimer: 100% nonsense. 200% kucing.</p>
+</section>
+
+<!-- QUIZ -->
+<section class="container hidden" id="quiz">
+  <span class="tag">LEVEL OF CHAOS: MAXIMUM</span>
+  <h2 id="questionTitle">SOALAN 1</h2>
+  <p id="questionText"></p>
+  <div id="answers"></div>
+
+  <div class="meme hidden" id="reaction">
+    <div class="cat" id="reactionCat">😾</div>
+    <h3 id="reactionTitle">BRO WHAT 💀</h3>
+    <p id="reactionText"></p>
+    <button onclick="nextQuestion()">OK NEXT 😭</button>
+  </div>
+
+  <p id="progress">SOALAN 1/5</p>
+  <p>⭐ Score: <span id="score">0</span></p>
+</section>
+
+<!-- FINAL SURPRISE -->
+<section class="container hidden" id="final">
+  <span class="tag">🏆 CHAOS SURVIVOR 🏆</span>
+  <div class="cat">🐈🎉🎂🐈</div>
+  <h1 id="finalTitle">HAPPY BIRTHDAY!!!</h1>
+  <h2>KAU BERJAYA UNLOCK THE SURPRISE!!!</h2>
+
+  <div class="meme">
+    <div class="cat">🐱👑</div>
+    <h2>BREAKING NEWS</h2>
+    <p>Local human gets older. Still no sign of common sense.</p>
+    <p>Sources: seekor kucing yang tak bayar cukai.</p>
+  </div>
+
+  <h2>💌 A LITTLE MESSAGE FOR YOU</h2>
+  <p id="birthdayWish">
+    Happy birthday!! Semoga tahun ni penuh dengan happiness,
+    rezeki, good memories dan benda-benda baik.
+    Terima kasih sebab jadi member aku.
+    Jangan lupa happy selalu, jaga diri, dan semoga semua
+    benda yang kau impikan dipermudahkan.
+    Stay chaotic, stay iconic. Love you, bestie!! 💗
+  </p>
+
+  <div class="meme">
+    <div class="cat">🥹🐈💖</div>
+    <h3>YOUR OFFICIAL BIRTHDAY CAT</h3>
+    <p>Dia tak pandai bagi hadiah. Dia cuma pandai judge orang.</p>
+  </div>
+
+  <h2>🎊 YOU ARE OFFICIALLY OLDER 🎊</h2>
+  <p>Age +1 | Brain cells loading... 0%</p>
+  <button onclick="celebrate()">MORE CONFETTI!!! 🎉</button>
+  <button onclick="restart()">MAIN LAGI 🔁</button>
+</section>
+
+<script>
+const questions = [
+  {
+    q: "1. Apa benda paling penting dalam hidup?",
+    a: ["Duit 💸", "Tidur 😴", "Makanan 🍜", "Kucing yang kaya 🐱"],
+    correct: 2,
+    wrong: "SALAH KE TAK SALAH, LAPAR TETAP LAPAR 💀",
+    right: "OKAY FOOD ENTHUSIAST 🍜"
+  },
+  {
+    q: "2. Kalau kucing kau jadi CEO, apa jadi?",
+    a: ["Semua meeting tidur", "Gaji dibayar ikan", "Semua pekerja jadi servant", "SEMUA DI ATAS"],
+    correct: 3,
+    wrong: "KUCING TU DAH PECAT KAU 😭",
+    right: "BETUL. CEO CAT NEVER MISSES 🐈‍⬛"
+  },
+  {
+    q: "3. Bila member cakap 'aku dah ready'...",
+    a: ["Dia memang ready", "Baru nak mandi", "Tengah cari baju", "Belum bangun tidur"],
+    correct: 1,
+    wrong: "KAU PERCAYA DIA? SWEET SUMMER CHILD 💀",
+    right: "REAL. VERY REAL. 😭"
+  },
+  {
+    q: "4. Apakah hadiah birthday paling rare?",
+    a: ["Duit RM1 juta", "Tidur 12 jam", "Kucing yang boleh bayar bil", "Semua best"],
+    correct: 3,
+    wrong: "JAWAPAN KAU TELAH DIJUDGE OLEH 17 EKOR KUCING 😾",
+    right: "CORRECT. WE LOVE FREE STUFF 💸"
+  },
+  {
+    q: "5. Apakah misi terakhir kau?",
+    a: ["Jadi billionaire", "Makan tanpa limit", "Bahagia selalu", "UNLOCK BIRTHDAY SURPRISE"],
+    correct: 3,
+    wrong: "WEH DAH NAK HABIS PUN SALAH 😭 TRY LAGI!",
+    right: "FINAL BOSS DEFEATED!!! 🎉"
+  }
+];
+
+let current = 0;
+let score = 0;
+let selectedName = "BIRTHDAY GREMLIN";
+let answered = false;
+
+function show(id) {
+  document.querySelectorAll(".container").forEach(el =>
+    el.classList.add("hidden")
+  );
+  document.getElementById(id).classList.remove("hidden");
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function startGame() {
+  const name = document.getElementById("friendName").value.trim();
+  selectedName = name || "BIRTHDAY GREMLIN";
+  current = 0;
+  score = 0;
+  document.getElementById("score").textContent = score;
+  show("quiz");
+  loadQuestion();
+}
+
+function loadQuestion() {
+  answered = false;
+  const q = questions[current];
+  document.getElementById("questionTitle").textContent =
+    "SOALAN " + (current + 1);
+  document.getElementById("questionText").textContent = q.q;
+  document.getElementById("progress").textContent =
+    "SOALAN " + (current + 1) + "/" + questions.length;
+  document.getElementById("reaction").classList.add("hidden");
+
+  const answers = document.getElementById("answers");
+  answers.innerHTML = "";
+
+  q.a.forEach((answer, index) => {
+    const btn = document.createElement("button");
+    btn.className = "answer";
+    btn.textContent = answer;
+    btn.onclick = () => checkAnswer(index);
+    answers.appendChild(btn);
+  });
+}
+
+function checkAnswer(index) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[current];
+  const correct = index === q.correct;
+
+  if (correct) score++;
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("answers").classList.add("hidden");
+
+  const reaction = document.getElementById("reaction");
+  reaction.classList.remove("hidden");
+  document.getElementById("reactionCat").textContent =
+    correct ? "😼🎉" : "😾💀";
+  document.getElementById("reactionTitle").textContent =
+    correct ? "BIG BRAIN MOMENT 🧠" : "BRO WHAT 💀";
+  document.getElementById("reactionText").textContent =
+    correct ? q.right : q.wrong;
+
+  if (correct) celebrate();
+  else document.getElementById("reactionCat").textContent = "🙀";
+
+  const btn = reaction.querySelector("button");
+  btn.textContent = current === questions.length - 1
+    ? "UNLOCK MY SURPRISE 🎁"
+    : "OK NEXT 😭";
+}
+
+function nextQuestion() {
+  current++;
+
+  if (current >= questions.length) {
+    document.getElementById("finalTitle").textContent =
+      "HAPPY BIRTHDAY, " + selectedName + "!!! 🎂";
+    show("final");
+    celebrate();
+    return;
+  }
+
+  document.getElementById("answers").classList.remove("hidden");
+  loadQuestion();
+}
+
+function restart() {
+  document.getElementById("answers").classList.remove("hidden");
+  show("intro");
+}
+
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+let pieces = [];
+let animating = false;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function celebrate() {
+  for (let i = 0; i < 130; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: -Math.random() * canvas.height,
+      size: 4 + Math.random() * 9,
+      speed: 2 + Math.random() * 5,
+      drift: Math.random() * 4 - 2,
+      color: ["#ff2e93", "#ffe45e", "#00d9ff",
+              "#8b5cf6", "#56e39f"][Math.floor(Math.random() * 5)]
+    });
+  }
+
+  if (!animating) {
+    animating = true;
+    drawConfetti();
+  }
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  pieces.forEach(p => {
+    ctx.fillStyle = p.color;
+    ctx.fillRect(p.x, p.y, p.size, p.size * 1.5);
+    p.y += p.speed;
+    p.x += p.drift;
+  });
+
+  pieces = pieces.filter(p => p.y < canvas.height + 20);
+
+  if (pieces.length > 0) {
+    requestAnimationFrame(drawConfetti);
+  } else {
+    animating = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+</script>
+</body>
+</html>
